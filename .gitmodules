@@ -1,0 +1,6 @@
+[submodule "modules"]
+	path = modules
+	url = https://github.com/nezvanovml/stm32f103_controller_modules.git
+[submodule "Libraries/IOlibrary"]
+	path = Libraries/IOlibrary
+	url = https://github.com/Wiznet/ioLibrary_Driver.git
