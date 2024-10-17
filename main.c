@@ -19,7 +19,7 @@
 #define RelayConnection 5 // 1 - relay; 2 - ventilation; 3 - lights; 4 - access, watering; 5 - waterleaks
 
 /* Connection of inputs */
-#define InputConnection 3// 1 - relay; 2 - access, watering; 3 - waterleaks; 4 - FSCD, move
+#define InputConnection 3 // 1 - access, watering; 2 - waterleaks; 3 - FSCD, move
 
 
 #define W5500_NETWORK 172,16,10,0
