@@ -96,6 +96,17 @@ int main(void)
 							}
 						}
 						http_request.status_code = 200;
+					} else if(strcmp(http_request.path, "/v_numeric") == 0){
+						char key[20], value[64];
+						uint16_t res = 0, start = 0;
+						// parsing body args
+						xsprintf(http_request.response, "{\"error\":null}");
+						while ((res = get_param(http_request.args+start, key, value)) > 0){
+							start += res;
+							uint16_t channel = get_int_from_str(key);
+							virtual_numeric_set_value(channel, get_int_from_str(value));
+						}
+						http_request.status_code = 200;
 					} else if(strcmp(http_request.path, "/virtual_switch") == 0){
 						char key[20], value[64];
 						uint16_t res = 0, start = 0;
