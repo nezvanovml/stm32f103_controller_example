@@ -113,7 +113,7 @@ int main(void)
 							virtual_numeric_set_value(channel, get_int_from_str(value));
 						}
 						http_request.status_code = 200;
-					} else if(strcmp(http_request.path, "/virtual_switch") == 0){
+					} else if(strcmp(http_request.path, "/v_switch") == 0){
 						char key[20], value[64];
 						uint16_t res = 0, start = 0;
 						// parsing body args
@@ -128,7 +128,7 @@ int main(void)
 							}
 						}
 						http_request.status_code = 200;
-					} else if(strcmp(http_request.path, "/virtual_button") == 0){
+					} else if(strcmp(http_request.path, "/v_button") == 0){
 						char key[20], value[64];
 						uint16_t res = 0, start = 0;
 						// parsing body args
