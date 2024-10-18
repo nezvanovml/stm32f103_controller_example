@@ -24,6 +24,12 @@
 /* Connection of inputs */
 #define InputConnection 3 // 1 - access, watering; 2 - waterleaks; 3 - FSCD, move
 
+/* Virtual entities */
+#define VIRTUAL_NUM_OF_SWITCH 8
+#define VIRTUAL_NUM_OF_BUTTON 8
+#define VIRTUAL_NUM_OF_BINARY_SENSOR 8
+#define VIRTUAL_NUM_OF_NUMERIC 8
+
 
 #define W5500_NETWORK 172,16,10,0
 #define W5500_NETMASK 255,255,255,0
