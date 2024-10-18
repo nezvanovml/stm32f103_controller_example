@@ -4,7 +4,10 @@
 #include <string.h>
 #include <stm32f10x.h>
 #include "stm32f10x_spi.h"
+#include "stm32f10x_iwdg.h"
 
+/* Enable iwdg */
+#define USE_WATCHDOG 1
 
 /* Connection of  I/O Module. */
 #define IOModuleConnection 1 // 1 - relay, sensors, leaks; 2 - ventilation, light, access, watering
