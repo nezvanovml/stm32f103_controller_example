@@ -34,7 +34,7 @@
 #define W5500_NETWORK 172,16,10,0
 #define W5500_NETMASK 255,255,255,0
 
-uint8_t device_index = 0;
+uint8_t device_index = 0, system_loaded = 0;
 
 GPIO_InitTypeDef	Init_PORT;
 SPI_InitTypeDef		SPI_InitStructure;
@@ -50,10 +50,10 @@ void TIM2_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET) { 
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update); 
-		// call interruptions for modules
-		modules_interruptions();
-		// user interruptions here
-
+		modules_interruptions(); // interruptions for modules
+		if(system_loaded){ // user interruptions here
+			;
+		}
 	}
 } 
 
