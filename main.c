@@ -6,6 +6,10 @@
 #include "stm32f10x_spi.h"
 #include "stm32f10x_iwdg.h"
 
+/*
+V_Button 1 - Reset MCU
+*/
+
 /* Enable iwdg */
 #define USE_WATCHDOG 1
 
@@ -34,7 +38,8 @@
 #define W5500_NETWORK 172,16,10,0
 #define W5500_NETMASK 255,255,255,0
 
-uint8_t device_index = 0, system_loaded = 0;
+/* device_index - used for ip/mac assigning, system_loaded - indicates mcu are loaded, need_mcu_reset - if set to 1 MCU will reset */
+uint8_t device_index = 0, system_loaded = 0, need_mcu_reset = 0;
 
 GPIO_InitTypeDef	Init_PORT;
 SPI_InitTypeDef		SPI_InitStructure;
@@ -78,6 +83,7 @@ int main(void)
 		DHCP_run();
 		#endif
 	
+		if(virtual_button_get_state(1)) need_mcu_reset = 1;
 		
 		switch(http_server_process(1, 80, &http_request)){
 			case HTTP_RECEIVED:
@@ -165,6 +171,7 @@ int main(void)
 				break;
 			case HTTP_SENT:
 				// Here you can reset counters etc if data sent successfully
+				if(need_mcu_reset) NVIC_SystemReset(); // Reset MCU
 				LEDON(14);
 				break;
 			case HTTP_ERROR:
