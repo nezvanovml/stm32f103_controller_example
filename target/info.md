@@ -1,1 +1,0 @@
-In this directory binary FOR MCU would be saved.
