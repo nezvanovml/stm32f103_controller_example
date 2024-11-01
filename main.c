@@ -21,21 +21,21 @@ IO BTN 5 - Reset MCU
 #define W5500Connection 1 // all controllers
 
 /* Connection of  DS18B20 (DALLAS) Module. */
-#define DS18B20Connection 2 // 1 - relay, sensors; 2 - ventilation
+// #define DS18B20Connection 2 // 1 - relay, sensors; 2 - ventilation
 
 /* Connection of relays */
-#define RelayConnection 2 // 1 - relay; 2 - ventilation; 3 - lights; 4 - access, watering; 5 - waterleaks
+#define RelayConnection 4 // 1 - relay; 2 - ventilation; 3 - lights; 4 - access, watering; 5 - waterleaks
 
 /* Connection of inputs */
-// #define InputConnection 3 // 1 - access, watering; 2 - waterleaks; 3 - FSCD, move
+#define InputConnection 1 // 1 - access, watering; 2 - waterleaks; 3 - FSCD, move
 
 /* Virtual entities */
-#define VIRTUAL_NUM_OF_SWITCH 8
-#define VIRTUAL_NUM_OF_BUTTON 8
-#define VIRTUAL_NUM_OF_BINARY_SENSOR 8
-#define VIRTUAL_NUM_OF_NUMERIC 8
+#define VIRTUAL_NUM_OF_SWITCH 0
+#define VIRTUAL_NUM_OF_BUTTON 0
+#define VIRTUAL_NUM_OF_BINARY_SENSOR 0
+#define VIRTUAL_NUM_OF_NUMERIC 0
 
-#define W5500_NETWORK 172, 16, 10, 0
+#define W5500_NETWORK 172, 16, 30, 0
 #define W5500_NETMASK 255, 255, 255, 0
 
 /* device_index - used for ip/mac assigning, system_loaded - indicates mcu are loaded, need_mcu_reset - if set to 1 MCU will reset */
@@ -87,6 +87,14 @@ int main(void)
 			need_mcu_reset = 1;
 		if (io_module_button_pressed(5))
 			NVIC_SystemReset(); // Reset MCU
+
+
+		if(input_button_pressed_short(2)){
+			RELAY_IMPULSE(1);
+		}
+		if(input_button_pressed_long(2)){
+			RELAY_IMPULSE(2);
+		}
 
 		switch (http_server_process(1, 80, &http_request))
 		{
