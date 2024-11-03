@@ -9,7 +9,7 @@ MEMORY
 {
   /* r - ������, w - ������, x - ���������� */
   flash	(rx)	: ORIGIN = 0x08000000, LENGTH = 64K /* K���� */
-  ram	(xrw)	: ORIGIN = 0x20000000, LENGTH = 4K
+  ram	(xrw)	: ORIGIN = 0x20000000, LENGTH = 20K
 }
 
 SECTIONS
@@ -60,7 +60,7 @@ SECTIONS
 
 /* ���� */
 	_stack_size = 200;
-	_stack_end = 0x20000000 + 4K; 
+	_stack_end = 0x20000000 + 20K; 
 	_stack_begin = _stack_end - _stack_size;
 	
 	. = _stack_begin;
