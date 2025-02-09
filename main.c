@@ -14,6 +14,8 @@ IO BTN 5 - Reset MCU
 /* Enable iwdg */
 #define USE_WATCHDOG 1
 
+#define DISABLE_JTAG 0 // 1 - Disable, 0 - Enable. You must disable JTAG for correct use JTAG-attached ports on MCU
+
 /* Connection of  I/O Module. */
 #define IOModuleConnection 2 // 1 - relay, sensors, leaks; 2 - ventilation, light, access, watering
 
@@ -22,23 +24,35 @@ IO BTN 5 - Reset MCU
 
 /* Connection of  DS18B20 (DALLAS) Module. */
 // #define DS18B20Connection 2 // 1 - relay, sensors; 2 - ventilation
+#define DS18B20_MAX_DEVICES 10 // maximum devices on 1Wire
+#define DS18B20_NEED_SCAN 1 // 1 - Enable, 0 - Disable automatic 1Wire scanning for devices
+#define DS18B20Period 30 // Period for measuring temperature (seconds)
 
 /* Connection of relays */
 #define RelayConnection 4 // 1 - relay; 2 - ventilation; 3 - lights; 4 - access, watering; 5 - waterleaks
 
 /* Connection of inputs */
 #define InputConnection 1 // 1 - access, watering; 2 - waterleaks; 3 - FSCD, move
+#define INPUT_BUTTON_SHORT_LONG_THRESHOLD 1000 // how many microseconds button must be pressed for register as long-pressed
 
-/* Virtual entities */
-#define VIRTUAL_NUM_OF_SWITCH 0
-#define VIRTUAL_NUM_OF_BUTTON 1
-#define VIRTUAL_NUM_OF_BINARY_SENSOR 2
-#define VIRTUAL_NUM_OF_NUMERIC 0
+/* Virtual entities - not physically connected, used for processing logic */
+#define VIRTUAL_NUM_OF_SWITCH 0 // number of virtual switches
+#define VIRTUAL_NUM_OF_BUTTON 1 // number of virtual buttons
+#define VIRTUAL_NUM_OF_BINARY_SENSOR 2 // number of virtual binary sensors (1/0)
+#define VIRTUAL_NUM_OF_NUMERIC 0 // number of virtual numerics
+#define VIRTUAL_NUMERIC_MIN_1 10 // setting minimal value for VIRTUAL_NUMERIC_1. If not defined defaults to 0
+#define VIRTUAL_NUMERIC_MAX_1 25 // setting maximal value for VIRTUAL_NUMERIC_1. If not defined defaults to 100
 
-#define W5500_NETWORK 172, 16, 30, 0
-#define W5500_NETMASK 255, 255, 255, 0
+#define W5500_NETWORK 172, 16, 20, 0 // IPv4 network address
+#define W5500_NETMASK 255, 255, 255, 0 // IPv4 network mask
 
-#define DEVICE_INDEX 48
+#define DEVICE_INDEX 48 // if not defined MCU will read bits from DIP-switch on io_module
+
+#define W5500_RESET_MCU_IF_NO_CONNECTION 1 // Automatic reset MCU if no any connections from Home Assistant (literally no any request to MCU from any system)
+
+/* Auto reset MCU periodically, period set to 24 hours */
+#define MCU_AUTO_RESET_ENABLE 1 // 1 - Enable, 0 - Disable automatic MCU reboot every N minutes of work
+#define MCU_AUTO_RESET_PERIOD 1440 // 1440 minutes = 24 hours
 
 /* device_index - used for ip/mac assigning, system_loaded - indicates mcu are loaded, need_mcu_reset - if set to 1 MCU will reset */
 uint8_t device_index = 0, system_loaded = 0, need_mcu_reset = 0;
